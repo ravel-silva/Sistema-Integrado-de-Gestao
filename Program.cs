@@ -14,6 +14,7 @@ builder.Services.AddScoped<RequisicaoDeMaterialService>();
 builder.Services.AddIdentity<Usuario, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.AddScoped<UserService>();
 
 // configuraçao para evitar loop infinito
 builder.Services.AddControllers().AddJsonOptions(options =>
