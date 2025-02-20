@@ -7,12 +7,12 @@ namespace Solicitacao_de_Material.Services
     public class UserService
     {
         private UserManager<Usuario> _userManege;
-        private SignInManager<Usuario> _singInManager;
+        private SignInManager<Usuario> _signInManager;
 
-        public UserService(UserManager<Usuario> userManege, SignInManager<Usuario> singInManager)
+        public UserService(UserManager<Usuario> userManege, SignInManager<Usuario> signInManager)
         {
             _userManege = userManege;
-            _singInManager = singInManager;
+            _signInManager = signInManager;
         }
 
         public async Task CadastroUser(CreateUsuarioDto UsuarioDto)
@@ -21,6 +21,7 @@ namespace Solicitacao_de_Material.Services
             {
                 UserName = UsuarioDto.Username,
                 Matricula = UsuarioDto.Matricula,
+                NivelDeAcesso = UsuarioDto.NivelDeAcesso
             };
             IdentityResult result = await _userManege.CreateAsync(usuario, UsuarioDto.Password);
             if (!result.Succeeded)
@@ -33,8 +34,8 @@ namespace Solicitacao_de_Material.Services
 
         public async Task Login(LoginDto loginDto)
         {
-            await _singInManager.PasswordSignInAsync(loginDto.Username, loginDto.Password, false, false);
-            var resultado = await _singInManager.PasswordSignInAsync(loginDto.Username, loginDto.Password, false, false);
+            await _signInManager.PasswordSignInAsync(loginDto.Username, loginDto.Password, false, false);
+            var resultado = await _signInManager.PasswordSignInAsync(loginDto.Username, loginDto.Password, false, false);
             if (!resultado.Succeeded)
             {
                 throw new ApplicationException("Erro ao logar");

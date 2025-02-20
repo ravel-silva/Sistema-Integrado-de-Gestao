@@ -16,6 +16,8 @@ namespace Solicitacao_de_Material.Data.Dtos.Auth
         public string ConfirmPassword { get; set; }
         [Required]
         public DateTime DataDeCadastro { get; set; } = DateTime.Now;
+        [Required]
+        public string NivelDeAcesso { get; set; }
 
     }
 }

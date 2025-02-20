@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Solicitacao_de_Material.Authorization;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Model.Auth;
 using Solicitacao_de_Material.Services;
@@ -16,17 +17,28 @@ builder.Services.AddIdentity<Usuario, IdentityRole>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped<UserService>();
 
+//configuração de policy
+builder.Services.AddAuthorization(options =>
+{
+    //policy basicas
+    options.AddPolicy("NivelDeAcesso", policy 
+        => policy.AddRequirements(new NivelDeAcesso("NivelDeAcessoBasico")));
+    //policy admin
+    options.AddPolicy("NivelDeAcesso", policy
+        => policy.AddRequirements(new NivelDeAcesso("NivelDeAcessoAdmin")));
+});
+
 // configuraçao para evitar loop infinito
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
     options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-}); 
+});
 
 // permite letras maisculas e minusculas e espaços no campo de username
 builder.Services.Configure<IdentityOptions>(options =>
 {
-   options.User.AllowedUserNameCharacters= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 });
 
 // Add services to the container.
