@@ -17,15 +17,11 @@ builder.Services.AddIdentity<Usuario, IdentityRole>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped<UserService>();
 
-//configuração de policy
+// Configurar políticas de autorização
 builder.Services.AddAuthorization(options =>
 {
-    //policy basicas
-    options.AddPolicy("NivelDeAcesso", policy 
-        => policy.AddRequirements(new NivelDeAcesso("NivelDeAcessoBasico")));
-    //policy admin
-    options.AddPolicy("NivelDeAcesso", policy
-        => policy.AddRequirements(new NivelDeAcesso("NivelDeAcessoAdmin")));
+    options.AddPolicy("Basico", policy => policy.RequireRole("Basico"));
+    options.AddPolicy("Administrador", policy => policy.RequireRole("Administrador"));
 });
 
 // configuraçao para evitar loop infinito

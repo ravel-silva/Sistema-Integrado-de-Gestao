@@ -27,8 +27,15 @@ namespace Solicitacao_de_Material.Controllers.Auth
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            await _Service.Login(loginDto);
-            return Ok();
+            var token = await _Service.Login(loginDto);
+            return Ok(new {Token = token});
+        }
+        [HttpGet] // so para teste, rever o codigo
+        public IActionResult Get()
+        {
+           
+            var lista = _Service.ListaDeUsuarios();
+            return Ok(lista);
         }
     }
 }

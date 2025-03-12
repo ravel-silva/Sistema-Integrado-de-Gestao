@@ -32,7 +32,7 @@ namespace Solicitacao_de_Material.Services
 
         }
 
-        public async Task Login(LoginDto loginDto)
+        public async Task<string> Login(LoginDto loginDto)
         {
             await _signInManager.PasswordSignInAsync(loginDto.Username, loginDto.Password, false, false);
             var resultado = await _signInManager.PasswordSignInAsync(loginDto.Username, loginDto.Password, false, false);
@@ -40,6 +40,14 @@ namespace Solicitacao_de_Material.Services
             {
                 throw new ApplicationException("Erro ao logar");
             }
+            var token = await _userManege.GenerateUserTokenAsync(await _userManege.FindByNameAsync(loginDto.Username), "Default", "token");
+            return token;
+        }
+
+        //visualizar todos os usuarios
+        public async Task<IEnumerable<Usuario>> ListaDeUsuarios()
+        {
+            return _userManege.Users.ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
 using Solicitacao_de_Material.Services;
@@ -16,6 +17,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Administrador")]
         public IActionResult CreateMaterial([FromBody] CreateMaterialDto materialDto)
         {
             if(!ModelState.IsValid)
@@ -28,6 +30,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "Basico")]
         public IActionResult GetMaterials(PaginationParameters parameters)
         {
             if (_service.GetMaterials(parameters) == null || !_service.GetMaterials(parameters).Any())
@@ -38,6 +41,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "Basico")]
         public IActionResult GetMaterialById(int id)
         {
             if (_service.GetMaterialById(id) == null || !_service.GetMaterialById(id).Any())
@@ -48,6 +52,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "Administrador")]
         public IActionResult UpdateMaterial(int id, [FromBody] UpdateMaterialDto updateMaterialDto)
         {
             if(id != updateMaterialDto.Id)
@@ -62,6 +67,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Administrador")]
         public IActionResult DeleteMaterial(int id)
         {
             if (!_service.DeleteMaterial(id))
