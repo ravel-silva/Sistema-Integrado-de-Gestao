@@ -2,7 +2,7 @@
 using Solicitacao_de_Material.Data;
 using System.Security.Claims;
 
-namespace Solicitacao_de_Material.Authorization
+/*namespace Solicitacao_de_Material.Authorization
 {
     public class AcessoAuthorization : AuthorizationHandler<NivelDeAcesso> // basico e adm
     {
@@ -28,4 +28,4 @@ namespace Solicitacao_de_Material.Authorization
             return Task.CompletedTask;
         }
     }
-}
+}*/

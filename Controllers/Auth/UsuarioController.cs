@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Solicitacao_de_Material.Data.Dtos.Auth;
 using Solicitacao_de_Material.Model.Auth;
 using Solicitacao_de_Material.Services;
-
+/*
 namespace Solicitacao_de_Material.Controllers.Auth
 {
     [ApiController]
@@ -38,4 +38,4 @@ namespace Solicitacao_de_Material.Controllers.Auth
             return Ok(lista);
         }
     }
-}
+}*/

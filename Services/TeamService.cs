@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
@@ -8,20 +10,18 @@ namespace Solicitacao_de_Material.Services
     public class TeamService
     {
         private AppDbContext _context;
-        public TeamService(AppDbContext context)
+        private IMapper _mapper;
+        public TeamService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         //this method creates a new team
         public void CreateEquipe(CreateEquipeDto cadastroEquipeDto)
         {
-            
-            var novaEquipe = new Equipe
-            {
-                Prefixo = cadastroEquipeDto.Prefixo,
-                DataCriacao = cadastroEquipeDto.DataCriacao
-            };
+
+            var novaEquipe = _mapper.Map<Equipe>(cadastroEquipeDto);
             _context.Equipes.Add(novaEquipe);
             _context.SaveChanges();
 
@@ -30,35 +30,27 @@ namespace Solicitacao_de_Material.Services
         // This method views the list of teams
         public IEnumerable<ReadEquipeDto> GetEquipe(PaginationParameters parameters)
         {
-            var equipes = _context.Equipes.Select(equipe => new ReadEquipeDto
-            {
-                Id = equipe.Id,
-                Prefixo = equipe.Prefixo,
-                DataCriacao = equipe.DataCriacao
-            }).Skip((parameters.PageNumber - 1)
-            * parameters.PageSize)
-            .Take(parameters.PageSize);
+            var equipes = _context.Equipes
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .ToList();
+            var equipesDto = _mapper.Map<List<ReadEquipeDto>>(equipes);
 
-            return equipes.ToList();
+            return equipesDto.ToList();
         }
 
         // This method views the team by ID
-        public IEnumerable<ReadEquipeDto> GetEquipeId(int id)
+        public ReadEquipeDto? GetEquipeId(int id)
         {
-            var equipe = _context.Equipes
-                 .Where(e => e.Id == id) // Filtra pelo ID
-                 .Select(e => new ReadEquipeDto
-                 {
-                     Id = e.Id,
-                     Prefixo = e.Prefixo,
-                     DataCriacao = e.DataCriacao
-                 })
-                 .ToList(); // Retorna como lista
+            var equipes = _context.Equipes
+                 .FirstOrDefault(e => e.Id == id); // Filtra pelo ID
 
-            return equipe;
-            
+            var equipesDto = _mapper.Map<ReadEquipeDto>(equipes); // Retorna como lista
+
+            return equipesDto;
+
         }
-       
+
         // this method deletes a team
         public bool DeleleteEquipe(int id)
         {

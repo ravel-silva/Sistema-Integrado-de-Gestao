@@ -7,6 +7,18 @@ using Solicitacao_de_Material.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//-->
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+//-->
+
 builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<RelationShipEquipeFuncionarioService>();
@@ -23,6 +35,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Basico", policy => policy.RequireRole("Basico"));
     options.AddPolicy("Administrador", policy => policy.RequireRole("Administrador"));
 });
+
 
 // configuraçao para evitar loop infinito
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -43,6 +56,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 var connectionString = builder.Configuration.GetConnectionString("EquipeConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+//automapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -61,6 +77,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(); // excluir depois
 
 app.MapControllers();
 

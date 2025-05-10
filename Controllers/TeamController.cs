@@ -46,7 +46,7 @@ namespace Solicitacao_de_Material.Controllers
 
         // This method returns the list of teams
         [HttpGet]
-        public IActionResult GetTeams(PaginationParameters parameters)
+        public IActionResult GetTeams([FromQuery]PaginationParameters parameters)
         {
             var equipes = _TeamService.GetEquipe(parameters);
             if (equipes == null || !equipes.Any())
@@ -58,11 +58,11 @@ namespace Solicitacao_de_Material.Controllers
         }
         //this method returns the team by id
         [HttpGet("{id}")]
-        public IActionResult GetTeamId(int Id)
+        public IActionResult GetTeamId(int id)
         {
-            var equipe = _TeamService.GetEquipeId(Id);
+            var equipe = _TeamService.GetEquipeId(id);
 
-            if (equipe == null || !equipe.Any())
+            if (equipe == null)
             {
                 return NotFound("Equipe não localizada no sistema");
             }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Solicitacao_de_Material.Data;
 
-namespace Solicitacao_de_Material.Controllers.Auth
+/*namespace Solicitacao_de_Material.Controllers.Auth
 {
     [ApiController]
     [Route("[Controller]")]
@@ -15,17 +15,17 @@ namespace Solicitacao_de_Material.Controllers.Auth
             _context = context;
         }
         [HttpGet]
-        [Authorize(Policy = "NivelDeAcessoBasico")]
+        //[Authorize(Policy = "NivelDeAcessoBasico")]
         public IActionResult AcessoBasico()
         {
             return Ok();
         }
 
         [HttpGet]
-        [Authorize(Policy = "NivelDeAcessoAdmin")]
+       // [Authorize(Policy = "NivelDeAcessoAdmin")]
         public IActionResult AcessoAdmin()
         {
             return Ok();
         }
     }
-}
+}*/
