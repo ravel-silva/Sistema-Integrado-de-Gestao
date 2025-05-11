@@ -28,7 +28,7 @@ namespace Solicitacao_de_Material.Controllers
             return Ok();
         }
         [HttpGet]
-        public IActionResult GetFuncionarios(PaginationParameters parameters)
+        public IActionResult GetFuncionarios([FromQuery]PaginationParameters parameters)
         {
             if (_service.GetCadastroFuncionario(parameters) == null || !_service.GetCadastroFuncionario(parameters).Any())
             {
@@ -41,7 +41,7 @@ namespace Solicitacao_de_Material.Controllers
         [HttpGet("{id}")]
         public IActionResult GetFuncionarioById(int id)
         {
-            if (_service.GetCadastroFuncionarioById(id) == null || !_service.GetCadastroFuncionarioById(id).Any())
+            if (_service.GetCadastroFuncionarioById(id) == null)
             {
                 return NotFound("Funcionario não localizado");
             }

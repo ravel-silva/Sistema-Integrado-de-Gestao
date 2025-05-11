@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
@@ -8,49 +9,37 @@ namespace Solicitacao_de_Material.Services
     public class EmployeeService
     {
         private AppDbContext _context;
-        public EmployeeService(AppDbContext context)
+        private IMapper _mapper;
+        public EmployeeService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void CreateCadastroFuncionario(CreateFuncionarioDto createCadastroFuncionarioDto)
         {
-            var funcionario = new Funcionario
-            {
-                Nome = createCadastroFuncionarioDto.Nome,
-                Matricula = createCadastroFuncionarioDto.Matricula.ToString(),
-                DataCriacao = createCadastroFuncionarioDto.DataCriacao
-            };
+            var funcionario = _mapper.Map<Funcionario>(createCadastroFuncionarioDto);
             _context.Funcionarios.Add(funcionario);
             _context.SaveChanges();
         }
-        // get
+
         public IEnumerable<ReadFuncionarioDto> GetCadastroFuncionario(PaginationParameters parameters)
         {
-            var funcionarios = _context.Funcionarios.Select(funcionario => new ReadFuncionarioDto
-            {
-                Id = funcionario.Id,
-                Nome = funcionario.Nome,
-                Matricula = funcionario.Matricula.ToString(),
-                DataCriacao = funcionario.DataCriacao
-            }).Skip((parameters.PageNumber - 1)
-            * parameters.PageSize)
-            .Take(parameters.PageSize);
-            return funcionarios.ToList();
+            var funcionarios = _context.Funcionarios
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .ToList(); ;
+            var funcionariosDto = _mapper.Map<List<ReadFuncionarioDto>>(funcionarios);
+            return funcionariosDto.ToList();
         }
 
-        public IEnumerable<ReadFuncionarioDto> GetCadastroFuncionarioById(int id)
+        public ReadFuncionarioDto? GetCadastroFuncionarioById(int id)
         {
-            var funcionarios = _context.Funcionarios.Where(funcionarios => funcionarios.Id == id).Select(funcionarios => new ReadFuncionarioDto
-            {
-                Id = funcionarios.Id,
-                Nome = funcionarios.Nome,
-                Matricula = funcionarios.Matricula.ToString(),
-                DataCriacao = funcionarios.DataCriacao
-            });
-            return funcionarios.ToList();
+            var funcionarios = _context.Funcionarios.FirstOrDefault(funcionarios => funcionarios.Id == id);
+            var funcionariosDto = _mapper.Map<ReadFuncionarioDto>(funcionarios);
+            return funcionariosDto;
         }
-        
+
 
         public bool DeleteCadastroFuncionario(int id)
         {
