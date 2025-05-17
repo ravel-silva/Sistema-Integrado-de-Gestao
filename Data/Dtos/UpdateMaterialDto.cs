@@ -7,9 +7,8 @@ namespace Solicitacao_de_Material.Data.Dtos
         [Key]
         [Required]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Informe o codigo"),
-            MinLength(6, ErrorMessage = "O codigo deve ter no mínimo 6 digitos"),
-            MaxLength(8, ErrorMessage = "O codigo deve ter no máximo 8 digitos")]
+        [Required(ErrorMessage = "Informe o codigo")]
+        [Range(100000, 99999999, ErrorMessage = "O código deve ter entre 6 e 8 dígitos")]
         public int Codigo { get; set; }
         [Required(ErrorMessage = "Informe o nome do material")]
         public string Nome { get; set; }

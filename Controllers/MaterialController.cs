@@ -17,7 +17,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "Administrador")]
+       // [Authorize(Policy = "Administrador")]
         public IActionResult CreateMaterial([FromBody] CreateMaterialDto materialDto)
         {
             if(!ModelState.IsValid)
@@ -30,8 +30,8 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "Basico")]
-        public IActionResult GetMaterials(PaginationParameters parameters)
+        //[Authorize(Policy = "Basico")]
+        public IActionResult GetMaterials([FromQuery]PaginationParameters parameters)
         {
             if (_service.GetMaterials(parameters) == null || !_service.GetMaterials(parameters).Any())
             {
@@ -41,10 +41,10 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "Basico")]
+       // [Authorize(Policy = "Basico")]
         public IActionResult GetMaterialById(int id)
         {
-            if (_service.GetMaterialById(id) == null || !_service.GetMaterialById(id).Any())
+            if (_service.GetMaterialById(id) == null)
             {
                 return NotFound("Material não localizado");
             }
@@ -52,9 +52,13 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "Administrador")]
+        //[Authorize(Policy = "Administrador")]
         public IActionResult UpdateMaterial(int id, [FromBody] UpdateMaterialDto updateMaterialDto)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if(id != updateMaterialDto.Id)
             {
                 return BadRequest("Id inválido");
@@ -67,7 +71,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "Administrador")]
+       // [Authorize(Policy = "Administrador")]
         public IActionResult DeleteMaterial(int id)
         {
             if (!_service.DeleteMaterial(id))
