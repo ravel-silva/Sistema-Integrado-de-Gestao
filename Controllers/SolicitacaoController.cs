@@ -30,7 +30,7 @@ namespace Solicitacao_de_Material.Controllers
             return Ok();
         }
         [HttpGet]
-        public IActionResult Requisicoes(PaginationParameters parameters)
+        public IActionResult Requisicoes([FromQuery]PaginationParameters parameters)
         {
             if (_service.ViewRequisicoes(parameters) == null || !_service.ViewRequisicoes(parameters).Any())
             {

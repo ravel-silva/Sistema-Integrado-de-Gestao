@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
@@ -8,86 +9,39 @@ namespace Solicitacao_de_Material.Services
     public class RequisicaoDeMaterialService
     {
         private AppDbContext _context;
+        private IMapper _mapper;
 
-        public RequisicaoDeMaterialService(AppDbContext context)
+        public RequisicaoDeMaterialService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void CreateRequisicaoDeMaterial(CreateRequisicaoDeMaterialDto requisicao)
         {
-            var novaRequisicao = new RequisicaoDeMaterial
-            {
-                EquipeId = requisicao.EquipeId,
-                Status = requisicao.Status,
-                DateTime = DateTime.Now,
-                Materiais = new List<ListMaterial>()
-            };
-            foreach (var material in requisicao.Materiais)
-            {
-                novaRequisicao.Materiais.Add(new ListMaterial
-                {
-                    MaterialId = material.MaterialId,
-                    Quantidade = material.Quantidade
-                });
-            }
+            var novaRequisicao = _mapper.Map<RequisicaoDeMaterial>(requisicao);
             _context.RequisicoesDeMaterial.Add(novaRequisicao);
             _context.SaveChanges();
         }
         public ICollection<ReadRequisicaoDeMaterialDto> ViewRequisicoes(PaginationParameters parameters)
         {
-            return _context.RequisicoesDeMaterial
+            var requisicoes = _context.RequisicoesDeMaterial
                 .Include(r => r.Equipe)
                 .Include(r => r.Materiais)
                 .ThenInclude(m => m.Material)
-                .Select(r => new ReadRequisicaoDeMaterialDto
-                {
-                    Id = r.Id,
-                    EquipeId = r.EquipeId,
-                    EquipeNome = r.Equipe.Prefixo, // Mapeando a propriedade Prefixo para EquipeNome
-                    Status = r.Status,
-                    DateTime = r.DateTime,
-                    Materiais = r.Materiais.Select(m => new ReadMaterialDto
-                    {
-                        Id = m.Material.Id,
-                        Codigo = m.Material.Codigo,
-                        Nome = m.Material.Nome,
-                        Descricao = m.Material.Descricao,
-                        Quantidade = m.Quantidade,
-                        Unidade = m.Material.Unidade,
-                        Status = m.Material.Status
-                    }).Skip((parameters.PageNumber - 1)
-                       * parameters.PageSize)
-                       .Take(parameters.PageSize).ToList()
-                })
-                .ToList();
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize).ToList();
+            return _mapper.Map<ICollection<ReadRequisicaoDeMaterialDto>>(requisicoes);
         }
         public ICollection<ReadRequisicaoDeMaterialDto> ViewRequisicoesId(int id)
         {
-            return _context.RequisicoesDeMaterial
+            var requisicao = _context.RequisicoesDeMaterial
                 .Include(r => r.Equipe)
                 .Include(r => r.Materiais)
                 .ThenInclude(m => m.Material)
                 .Where(r => r.EquipeId == id)
-                .Select(r => new ReadRequisicaoDeMaterialDto
-                {
-                    Id = r.Id,
-                    EquipeId = r.EquipeId,
-                    EquipeNome = r.Equipe.Prefixo, // Mapeando a propriedade Prefixo para EquipeNome
-                    Status = r.Status,
-                    DateTime = r.DateTime,
-                    Materiais = r.Materiais.Select(m => new ReadMaterialDto
-                    {
-                        Id = m.Material.Id,
-                        Codigo = m.Material.Codigo,
-                        Nome = m.Material.Nome,
-                        Descricao = m.Material.Descricao,
-                        Quantidade = m.Quantidade,
-                        Unidade = m.Material.Unidade,
-                        Status = m.Material.Status
-                    }).ToList()
-                })
                 .ToList();
+            return _mapper.Map<ICollection<ReadRequisicaoDeMaterialDto>>(requisicao);
         }
         public bool DeleteRequisicao(int id)
         {
@@ -111,16 +65,14 @@ namespace Solicitacao_de_Material.Services
             {
                 return;
             }
-            requisicaoExistente.Status = requisicao.Status;
+
+            _mapper.Map(requisicao, requisicaoExistente);
             requisicaoExistente.DateTime = DateTime.Now;
             requisicaoExistente.Materiais.Clear();
-            foreach (var material in requisicao.Materiais)
+            var materiaisAtualizados = _mapper.Map<ICollection<ListMaterial>>(requisicao.Materiais);
+            foreach (var material in materiaisAtualizados)
             {
-                requisicaoExistente.Materiais.Add(new ListMaterial
-                {
-                    MaterialId = material.MaterialId,
-                    Quantidade = material.Quantidade
-                });
+                requisicaoExistente.Materiais.Add(material);
             }
             _context.SaveChanges();
         }
