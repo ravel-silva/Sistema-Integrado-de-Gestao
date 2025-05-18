@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Sistema_Integrado_de_Gestão.Data.Dtos;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
@@ -49,6 +50,18 @@ namespace Solicitacao_de_Material.Services
                 return false;
             }
             _context.Funcionarios.Remove(funcionario);
+            _context.SaveChanges();
+            return true;
+        }
+
+        internal bool UpdateCadastroFuncionario(int id, UpdateFuncionarioDto updateFuncionarioDto)
+        {
+            var employee = _context.Funcionarios.FirstOrDefault(Funcionario => Funcionario.Id == id);
+            if (employee == null)
+            {
+                return false;
+            }
+            _mapper.Map(updateFuncionarioDto, employee);
             _context.SaveChanges();
             return true;
         }

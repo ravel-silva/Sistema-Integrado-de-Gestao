@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sistema_Integrado_de_Gestão.Data.Dtos;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
@@ -46,6 +47,21 @@ namespace Solicitacao_de_Material.Controllers
                 return NotFound("Funcionario não localizado");
             }
             return Ok(_service.GetCadastroFuncionarioById(id));
+        }
+        [HttpPut("{id}")]
+        public IActionResult UpdateFuncionario(int id, [FromBody] UpdateFuncionarioDto updateFuncionarioDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var funcionario = _service.GetCadastroFuncionarioById(id);
+            if (funcionario == null)
+            {
+                return NotFound("Funcionario não localizado");
+            }
+            _service.UpdateCadastroFuncionario(id, updateFuncionarioDto);
+            return Ok("Funcionario atualizado com sucesso");
         }
 
         [HttpDelete("{id}")]

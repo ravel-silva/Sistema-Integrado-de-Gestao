@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copia apenas o arquivo do projeto primeiro para otimizar cache
-COPY ["SistemaIntegradoDeGestao.csproj", "./"]
+COPY ["Sistema Integrado de Gestão.csproj", "./"]
 RUN dotnet restore
 
 # Agora copia o restante dos arquivos
@@ -21,4 +21,4 @@ COPY --from=build /app/out .
 EXPOSE 80
 
 # Define a entrada do contêiner
-ENTRYPOINT ["dotnet", "SistemaIntegradoDeGestao.dll"]
+ENTRYPOINT ["dotnet", "Sistema Integrado de Gestão.dll"]
