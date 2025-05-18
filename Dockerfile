@@ -1,17 +1,14 @@
 ﻿# Etapa 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+WORKDIR /app
 
-# Copia apenas os arquivos do projeto primeiro, para otimizar cache
+# Copia apenas o arquivo do projeto primeiro para otimizar cache
 COPY ["SistemaIntegradoDeGestao.csproj", "./"]
 RUN dotnet restore
 
-# Copia o restante dos arquivos do projeto
+# Agora copia o restante dos arquivos
 COPY . .
-WORKDIR "/src"
-
-# Publica o app em modo Release
-RUN dotnet publish -c Release -o /app/out
+RUN dotnet publish -c Release -o out
 
 # Etapa 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
