@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Sistema_Integrado_de_Gestão.Data.Dtos;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
@@ -69,6 +70,18 @@ namespace Solicitacao_de_Material.Services
         public bool VerificarEquipe(string prefixo)
         {
             return _context.Equipes.Any(equipe => equipe.Prefixo == prefixo);
+        }
+
+        public bool UpdateCadastroEquipe(int id, UpdateEquipeDto updateEquipeDto)
+        {
+            var team = _context.Equipes.FirstOrDefault(equipe => equipe.Id == id);
+            if (team == null)
+            {
+                return false;
+            }
+            _mapper.Map(updateEquipeDto, team);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Solicitacao_de_Material.Services
             return true;
         }
 
-        internal bool UpdateCadastroFuncionario(int id, UpdateFuncionarioDto updateFuncionarioDto)
+        public bool UpdateCadastroFuncionario(int id, UpdateFuncionarioDto updateFuncionarioDto)
         {
             var employee = _context.Funcionarios.FirstOrDefault(Funcionario => Funcionario.Id == id);
             if (employee == null)

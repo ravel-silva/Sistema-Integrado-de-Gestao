@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copia apenas o arquivo do projeto primeiro para otimizar cache
-COPY ["Sistema Integrado de Gestão.csproj", "./"]
+COPY ["Sistema Integrado de Gestão.csproj", "/app/"]
 RUN dotnet restore
 
 # Agora copia o restante dos arquivos
