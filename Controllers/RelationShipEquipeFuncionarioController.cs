@@ -42,7 +42,7 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetRelationship(PaginationParameters parameters)
+        public IActionResult GetRelationship([FromQuery]PaginationParameters parameters)
         {
             if (_service.GetRelationship(parameters) == null || !_service.GetRelationship(parameters).Any())
             {

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Solicitacao_de_Material.Authorization;
 using Solicitacao_de_Material.Data;
-using Solicitacao_de_Material.Model.Auth;
 using Solicitacao_de_Material.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,10 +22,9 @@ builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<RelationShipEquipeFuncionarioService>();
 builder.Services.AddScoped<MaterialService>();
 builder.Services.AddScoped<RequisicaoDeMaterialService>();
-builder.Services.AddIdentity<Usuario, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
-builder.Services.AddScoped<UserService>();
+//builder.Services.AddIdentity<Usuario, IdentityRole>()
+//    .AddEntityFrameworkStores<AppDbContext>()
+//    .AddDefaultTokenProviders();
 
 // Configurar políticas de autorização
 builder.Services.AddAuthorization(options =>
