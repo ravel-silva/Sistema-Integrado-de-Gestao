@@ -73,25 +73,25 @@ namespace Solicitacao_de_Material.Services
         }
         public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationshipById(int id)
         {
-            var relacao = _context.RelationshipEquipeFuncionario
+            var dados = _context.RelationshipEquipeFuncionario
                 .Include(relacao => relacao.equipe)
                 .Include(relacao => relacao.funcionario)
                 .Where(relacao => relacao.equipeId == id)
+                .ToList();
+
+            var gupos = dados
                 .GroupBy(relacao => new { relacao.equipeId, relacao.equipe.Prefixo })
                 .Select(grupo => new ReadRelationshipEquipeFuncionarioDto
                 {
                     Id = grupo.First().Id,
                     equipeId = grupo.Key.equipeId,
                     equipePrefixo = grupo.Key.Prefixo,
-                    funcionarios = grupo.Select(relacao => new FuncionariosInfo
-                    {
-                        Id = relacao.funcionario.Id,
-                        NomeFuncionario = relacao.funcionario.Nome,
-                        MatriculaFuncionario = relacao.funcionario.Matricula
-                    }).ToList(),
+                    funcionarios = grupo
+                    .Select(relacao => _mapper.Map<FuncionariosInfo>(relacao))
+                .ToList(),
                     dataEntrada = grupo.First().dataEntrada
                 });
-            return relacao.ToList();
+            return gupos.ToList();
         }
         public bool DeleteRelationship(int id)
         {
