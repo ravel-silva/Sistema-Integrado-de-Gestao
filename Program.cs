@@ -17,6 +17,13 @@ builder.Services.AddCors(options =>
 });
 //-->
 
+//teste de hospedagem
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5005";
+builder.WebHost.UseUrls($"http://*:{port}");
+
+
+
+
 builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<RelationShipEquipeFuncionarioService>();
