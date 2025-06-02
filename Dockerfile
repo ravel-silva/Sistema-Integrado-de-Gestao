@@ -7,24 +7,23 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
 # Esta fase é usada para compilar o projeto de serviço
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Solicitacao de Material/Sistema Integrado de Gestão.csproj", "Solicitacao de Material/"]
-RUN dotnet restore "./Solicitacao de Material/Sistema Integrado de Gestão.csproj"
+COPY ["Solicitacao de Material/Sistema_Integrado_de_Gestao.csproj", "Solicitacao de Material/"]
+RUN dotnet restore "./Solicitacao de Material/Sistema_Integrado_de_Gestao.csproj"
 COPY . .
 WORKDIR "/src/Solicitacao de Material"
-RUN dotnet build "./Sistema Integrado de Gestão.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Sistema_Integrado_de_Gestao.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Sistema Integrado de Gestão.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Sistema_Integrado_de_Gestao.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Sistema Integrado de Gestão.dll"]
+ENTRYPOINT ["dotnet", "Sistema_Integrado_de_Gestao.dll"]
