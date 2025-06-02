@@ -12,7 +12,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["./Sistema_Integrado_de_Gestao.csproj", "./"]
-RUN dotnet restore "./Solicitacao de Material/Sistema_Integrado_de_Gestao.csproj"
+RUN dotnet restore "./Sistema_Integrado_de_Gestao.csproj"
 COPY . .
 WORKDIR "/src/Solicitacao de Material"
 RUN dotnet build "./Sistema_Integrado_de_Gestao.csproj" -c $BUILD_CONFIGURATION -o /app/build
