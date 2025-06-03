@@ -86,5 +86,7 @@ app.UseCors(); // excluir depois
 
 app.MapControllers();
 
+
+
 app.Run();
 
