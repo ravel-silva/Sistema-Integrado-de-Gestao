@@ -1,0 +1,39 @@
+# Build files
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Visual Studio Code
+.vscode/
+.vs/
+
+
+# Rider
+.idea/
+
+# ASP.NET Core specific
+appsettings.json
+appsettings.*.json
+
+# Sensitive data
+secrets.json
+
+# Entity Framework
+Migrations/
+
+# Dependency directories
+node_modules/
+wwwroot/lib/
