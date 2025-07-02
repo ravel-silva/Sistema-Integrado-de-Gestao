@@ -24,7 +24,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             validateDomain(prefixo, dataCriacao);
         }
 
-        public void validateDomain(string prefixo, DateTime dataCriacao)
+        private void validateDomain(string prefixo, DateTime dataCriacao)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(prefixo), "O Prefixo não pode ser vazio.");
             DomainExceptionValidation.When(prefixo.Length < 6, "O Prefixo deve ter no mínimo 6 caracteres.");

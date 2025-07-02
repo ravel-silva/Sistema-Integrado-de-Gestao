@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_Integrado_de_Gestao.Domain.Entities
 {
-    internal class Material
+    public class Material
     {
         public int Id { get; private set; }
         public int Codigo { get; private set; }
@@ -24,7 +24,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         {
             validateDomain(codigo, nome, descricao, quantidade, unidade, status, dataCriacao);
         }
-        public void validateDomain(int codigo, string nome, string descricao, int quantidade, string unidade, string status, DateTime dataCriacao)
+        private void validateDomain(int codigo, string nome, string descricao, int quantidade, string unidade, string status, DateTime dataCriacao)
         {
             DomainExceptionValidation.When(codigo <= 0, "O código do material deve ser maior que zero.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(nome), "O nome do material não pode ser vazio.");
@@ -49,6 +49,6 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         public void update(int codigo, string nome, string descricao, int quantidade, string unidade, string status, DateTime dataCriacao)
         {
             validateDomain(codigo, nome, descricao, quantidade, unidade, status, dataCriacao);
-        }   
+        }
     }
 }

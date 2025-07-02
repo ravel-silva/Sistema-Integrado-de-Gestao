@@ -25,7 +25,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             validateDomain(nome, matricula, dataCriacao);
         }
 
-        public void validateDomain(string nome, string matricula, DateTime dataCriacao)
+        private void validateDomain(string nome, string matricula, DateTime dataCriacao)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(nome), "O nome do funcionário não pode ser vazio.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(matricula), "A matrícula do funcionário não pode ser vazia.");
