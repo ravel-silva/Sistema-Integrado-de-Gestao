@@ -30,9 +30,6 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             DomainExceptionValidation.When(prefixo.Length < 6, "O Prefixo deve ter no mínimo 6 caracteres.");
             DomainExceptionValidation.When(prefixo.Contains(" "), "O Prefixo não pode conter espaços em branco.");
             DomainExceptionValidation.When(dataCriacao == default, "A Data de Criação não pode ser vazia.");
-
-            Prefixo = prefixo;
-            DataCriacao = dataCriacao;
         }
 
         public void SetProperties(

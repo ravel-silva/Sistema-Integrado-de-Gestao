@@ -12,6 +12,14 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Context
     {
         public AppDbContext(DbContextOptions opts) : base(opts) { }
         public DbSet<Equipe> Equipe { get; set; }
+
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        }
     }
 }
 
