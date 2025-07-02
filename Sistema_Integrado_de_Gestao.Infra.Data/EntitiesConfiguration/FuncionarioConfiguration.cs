@@ -13,7 +13,16 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Funcionario> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Nome)
+                .HasMaxLength(100)
+                .IsRequired();
+            builder.Property(x => x.Matricula)
+                .HasMaxLength(10)
+                .IsRequired();
+            builder.Property(x => x.DataCriacao)
+                .HasDefaultValue(DateTime.Now)
+                .IsRequired();
         }
     }
 }

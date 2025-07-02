@@ -29,6 +29,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             DomainExceptionValidation.When(string.IsNullOrEmpty(prefixo), "O Prefixo não pode ser vazio.");
             DomainExceptionValidation.When(prefixo.Length < 6, "O Prefixo deve ter no mínimo 6 caracteres.");
             DomainExceptionValidation.When(prefixo.Contains(" "), "O Prefixo não pode conter espaços em branco.");
+            DomainExceptionValidation.When(dataCriacao > DateTime.Now && dataCriacao < DateTime.Now, "A Data de Criação não pode ser maior ou menor que a data atual.");
             DomainExceptionValidation.When(dataCriacao == default, "A Data de Criação não pode ser vazia.");
         }
 
