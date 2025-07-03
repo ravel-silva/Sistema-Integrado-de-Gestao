@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_Integrado_de_Gestao.Infra.Data.EntitiesConfiguration
 {
-    internal class MaterialConfiguration : IEntityTypeConfiguration<Material>
+    public class MaterialConfiguration : IEntityTypeConfiguration<Material>
     {
         public void Configure(EntityTypeBuilder<Material> builder)
         {

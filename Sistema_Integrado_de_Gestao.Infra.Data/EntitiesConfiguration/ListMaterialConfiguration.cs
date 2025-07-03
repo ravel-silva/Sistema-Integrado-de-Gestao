@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_Integrado_de_Gestao.Infra.Data.EntitiesConfiguration
 {
-    internal class ListMaterialConfiguration : IEntityTypeConfiguration<ListMaterial>
+    public class ListMaterialConfiguration : IEntityTypeConfiguration<ListMaterial>
     {
         public void Configure(EntityTypeBuilder<ListMaterial> builder)
         {
