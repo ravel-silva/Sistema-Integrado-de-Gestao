@@ -26,9 +26,6 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.EntitiesConfiguration
             builder.Property(x => x.Descricao)
                 .HasMaxLength(100)
                 .IsRequired();
-            builder.Property(x => x.Quantidade)
-                .HasColumnType("int")
-                .IsRequired();
             builder.Property(x => x.Unidade)
                 .HasMaxLength(3)
                 .IsRequired();
