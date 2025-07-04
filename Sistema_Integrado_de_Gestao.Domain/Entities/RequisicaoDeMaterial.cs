@@ -30,17 +30,12 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             DomainExceptionValidation.When(equipeId <= 0, "O ID da equipe não pode ser menor ou igual a zero.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(status), "O status não pode ser vazio.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(status), "O status não pode ser vazio.");
-        }
 
-        public void setProperties(
-            int equipeId,
-            string status,
-            DateTime dataDaRequisicao)
-        {
             EquipeId = equipeId;
             Status = status;
             DataDaRequisicao = dataDaRequisicao;
         }
+
         public void update(
             int equipeId,
             string status,

@@ -32,12 +32,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             DomainExceptionValidation.When(matricula.Length < 3 || matricula.Length > 10, "A matrícula deve ter entre 3 e 10 caracteres.");
             DomainExceptionValidation.When(dataCriacao > DateTime.Now && dataCriacao < DateTime.Now, "A Data de Criação não pode ser maior ou menor que a data atual.");
             DomainExceptionValidation.When(dataCriacao == default, "A Data de Criação não pode ser vazia.");
-        }
-        public void SetProperties(
-            string nome,
-            string matricula,
-            DateTime dataCriacao)
-        {
+            
             Nome = nome;
             Matricula = matricula;
             DataCriacao = dataCriacao;

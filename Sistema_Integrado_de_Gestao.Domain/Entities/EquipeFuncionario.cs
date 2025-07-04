@@ -16,32 +16,31 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         public DateTime dataEntrada { get; set; } = DateTime.Now;
         public Equipe equipe { get; set; }
         public Funcionario funcionario { get; set; }
-    }
-    public EquipeFuncionario(
-        int equipeId,
-        int funcionarioId,
-        DateTime dataEntrada)
-        {
-            validateDomain(equipeId, funcionarioId, dataEntrada);
-        }
 
-        private void validateDomain(int equipeId, int funcionarioId, DateTime dataEntrada)
-        {
-           DomainExceptionValidation.When(equipeId <= 0, "O ID da equipe deve ser maior que zero.");
-            DomainExceptionValidation.When(funcionarioId <= 0, "O ID do funcionário deve ser maior que zero.");
-            DomainExceptionValidation.When(dataEntrada > DateTime.Now, "A Data de Entrada não pode ser maior que a data atual.");
-            DomainExceptionValidation.When(dataEntrada == default, "A Data de Entrada não pode ser vazia.");
-        }
-        public void SetProperties(
+        public EquipeFuncionario(
             int equipeId,
             int funcionarioId,
             DateTime dataEntrada)
         {
-           validateDomain(equipeId, funcionarioId, dataEntrada);
+            validateDomain(equipeId, funcionarioId, dataEntrada);
         }
+
+        private void validateDomain(int idEquipe, int idFuncionario, DateTime dataDeEntrada)
+        {
+            DomainExceptionValidation.When(idEquipe <= 0, "O ID da equipe deve ser maior que zero.");
+            DomainExceptionValidation.When(funcionarioId <= 0, "O ID do funcionário deve ser maior que zero.");
+            DomainExceptionValidation.When(dataEntrada > DateTime.Now, "A Data de Entrada não pode ser maior que a data atual.");
+            DomainExceptionValidation.When(dataEntrada == default, "A Data de Entrada não pode ser vazia.");
+           
+            idEquipe = equipeId;
+            idFuncionario = funcionarioId;
+            dataDeEntrada = dataEntrada;
+        }
+
         public void update(int equipeId, int funcionarioId, DateTime dataEntrada)
         {
             validateDomain(equipeId, funcionarioId, dataEntrada);
         }
-    
+
+    }
 }

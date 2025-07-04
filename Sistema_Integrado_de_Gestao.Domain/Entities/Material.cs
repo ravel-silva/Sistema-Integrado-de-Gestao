@@ -32,10 +32,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             DomainExceptionValidation.When(string.IsNullOrEmpty(status), "O status do material não pode ser vazio.");
             DomainExceptionValidation.When(dataCriacao > DateTime.Now && dataCriacao < DateTime.Now, "A Data de Criação não pode ser maior ou menor que a data atual.");
             DomainExceptionValidation.When(dataCriacao == default, "A Data de Criação não pode ser vazia.");
-        }
 
-        public void setProperties(int codigo, string nome, string descricao, int quantidade, string unidade, string status, DateTime dataCriacao)
-        {
             Codigo = codigo;
             Nome = nome;
             Descricao = descricao;
@@ -43,6 +40,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
             Status = status;
             DataCriacao = dataCriacao;
         }
+
         public void update(int codigo, string nome, string descricao, string unidade, string status, DateTime dataCriacao)
         {
             validateDomain(codigo, nome, descricao, unidade, status, dataCriacao);
