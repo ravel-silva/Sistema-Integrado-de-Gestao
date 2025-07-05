@@ -14,8 +14,8 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         public string Prefixo { get; private set; }
         public DateTime DataCriacao { get; private set; } = DateTime.Now;
 
-        //public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
-        //public virtual ICollection<RequisicaoDeMaterial> RequisicoesDeMaterial { get; set; }
+        public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
+        public virtual ICollection<RequisicaoDeMaterial> RequisicoesDeMaterial { get; set; }
 
         public Equipe(
             string prefixo,

@@ -15,7 +15,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         public string Matricula { get; private set; }
         public DateTime DataCriacao { get; private set; } = DateTime.Now;
 
-        //  public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
+        public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
 
         public Funcionario(
             string nome,

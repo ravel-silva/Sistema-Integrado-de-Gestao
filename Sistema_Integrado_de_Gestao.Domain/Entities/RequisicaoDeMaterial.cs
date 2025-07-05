@@ -13,7 +13,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         public int EquipeId { get; set; }
         public Equipe Equipe { get; set; }
 
-       // public ICollection<ListMaterial> Materiais { get; set; }
+        public ICollection<ListMaterial> Materiais { get; set; }
         public string Status { get; set; }  // Status da requisição (ex: Ativo, Cancelado, Concluído)
         public DateTime DataDaRequisicao { get; set; } = DateTime.Now; // Data e hora em que a requisição foi feita
 

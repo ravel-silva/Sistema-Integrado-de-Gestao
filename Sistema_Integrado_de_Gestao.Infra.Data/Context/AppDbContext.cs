@@ -12,6 +12,10 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Context
     {
         public AppDbContext(DbContextOptions opts) : base(opts) { }
         public DbSet<Equipe> Equipe { get; set; }
+        public DbSet<Funcionario> Funcionarios { get; set; }
+        public DbSet<EquipeFuncionario> RelationshipEquipeFuncionario { get; set; }
+        public DbSet<Material> Materiais { get; set; }
+        public DbSet<RequisicaoDeMaterial> RequisicoesDeMaterial { get; set; }
 
 
 

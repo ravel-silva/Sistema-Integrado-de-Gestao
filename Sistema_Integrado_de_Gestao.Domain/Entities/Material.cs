@@ -18,7 +18,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         public string Status { get; private set; }
         public DateTime DataCriacao { get; private set; } = DateTime.Now;
 
-        // public ICollection<ListMaterial> ListMateriais { get; set; }
+        public ICollection<ListMaterial> ListMateriais { get; set; }
         public Material(int codigo, string nome, string descricao, string unidade, string status, DateTime dataCriacao)
         {
             validateDomain(codigo, nome, descricao, unidade, status, dataCriacao);

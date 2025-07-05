@@ -13,7 +13,7 @@ namespace Sistema_Integrado_de_Gestao.Domain.Entities
         public string NomeFuncionario { get; set; }
         public string MatriculaFuncionario { get; set; }
 
-        // public virtual ICollection<Funcionario> Funcionarios { get; set; }
+        public virtual ICollection<Funcionario> Funcionarios { get; set; }
 
         public FuncionariosInfo(int id, string nomeFuncionario, string matriculaFuncionario)
         {

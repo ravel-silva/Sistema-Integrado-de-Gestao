@@ -27,4 +27,4 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.EntitiesConfiguration
 
     }
 }
-}
+
