@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SIG_Sistema_Integrado_de_Gestao.API</RootNamespace>
+    <UserSecretsId>3a8d3760-50f1-4e2a-9374-fb0e1a3dc112</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sistema_Integrado_de_Gestao.Infra.IoC\Sistema_Integrado_de_Gestao.Infra.IoC.csproj" />
+    <ProjectReference Include="..\src\SIG\Sistema_Integrado_de_Gestao.Application\Sistema_Integrado_de_Gestao.Application.csproj" />
+    <ProjectReference Include="..\src\SIG\Sistema_Integrado_de_Gestao.Infra.IoC\Sistema_Integrado_de_Gestao.Infra.IoC.csproj" />
+  </ItemGroup>
+
+</Project>
