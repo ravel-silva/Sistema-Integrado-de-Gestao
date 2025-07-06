@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
-    <Folder Include="Mappings\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sistema_Integrado_de_Gestao.Domain\Sistema_Integrado_de_Gestao.Domain.csproj" />
   </ItemGroup>
 
 </Project>

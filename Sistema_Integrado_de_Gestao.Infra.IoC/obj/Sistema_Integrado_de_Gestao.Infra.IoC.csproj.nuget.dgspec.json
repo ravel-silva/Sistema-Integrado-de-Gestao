@@ -31,7 +31,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\ravel\\OneDrive\\Documentos\\Programação\\Solicitacao-de-material\\Solicitacao de Material\\src\\SIG\\Sistema_Integrado_de_Gestao.Domain\\Sistema_Integrado_de_Gestao.Domain.csproj": {
+                "projectPath": "C:\\Users\\ravel\\OneDrive\\Documentos\\Programação\\Solicitacao-de-material\\Solicitacao de Material\\src\\SIG\\Sistema_Integrado_de_Gestao.Domain\\Sistema_Integrado_de_Gestao.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -49,6 +53,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
