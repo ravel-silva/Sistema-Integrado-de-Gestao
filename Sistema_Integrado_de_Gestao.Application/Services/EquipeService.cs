@@ -22,25 +22,25 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<Equipe> Alterar(Equipe equipeDTO)
+        public async Task<EquipeDTO> Incluir(EquipeDTO equipeDTO)
+        {
+            var equipe = _mapper.Map<Equipe>(equipeDTO);
+            var equipeIncluida = await _repository.Incluir(equipe);
+            return _mapper.Map<EquipeDTO>(equipeIncluida);
+        }
+        public async Task<EquipeDTO> Alterar(EquipeDTO equipeDTO)
         {
             var equipe = _mapper.Map<Equipe>(equipeDTO);
             var equipeAlterada = await _repository.Alterar(equipe);
-            return _mapper.Map<Equipe>(equipeAlterada);
+            return _mapper.Map<EquipeDTO>(equipeAlterada);
         }
 
-        public Task<Equipe> Excluir(int id)
+        public async Task<EquipeDTO> Excluir(int id)
         {
-            var equipe = _repository.Excluir(id);
-            return equipe;
+            var equipe = await _repository.Excluir(id);
+            return _mapper.Map<EquipeDTO>(equipe);
         }
 
-        public Task<Equipe> Incluir(Equipe equipeDTO)
-        {
-            var equipe = _mapper.Map<Equipe>(equipeDTO);
-            var equipeIncluida = _repository.Incluir(equipe);
-            return equipeIncluida;
-        }
 
         public Task<bool> SalveAllAsync()
         {
@@ -48,16 +48,18 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
             return resultado;
         }
 
-        public Task<Equipe> SelecionarByPk(int id)
+        public async Task<EquipeDTO> SelecionarByPk(int id)
         {
-            var equipe = _repository.SelecionarByPk(id);
-            return equipe;
+            var equipe = await _repository.SelecionarByPk(id);
+            return _mapper.Map<EquipeDTO>(equipe);
         }
 
-        public Task<IEnumerable<Equipe>> SelecionarTodos()
-        {
-            var equipes = _repository.SelecionarTodos();
-            return equipes;
+        public async Task<IEnumerable<EquipeDTO>> SelecionarTodos()
+        {   
+            var equipes = await _repository.SelecionarTodos();
+            var listaDeEquipes = _mapper.Map<IEnumerable<EquipeDTO>>(equipes);
+            return listaDeEquipes;
         }
+
     }
 }

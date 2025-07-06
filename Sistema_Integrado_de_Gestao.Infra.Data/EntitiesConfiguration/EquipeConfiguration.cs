@@ -14,7 +14,7 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<Equipe> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Prefixo).HasMaxLength(6).IsRequired();
+            builder.Property(x => x.Prefixo).HasMaxLength(12).IsRequired();
             builder.Property(x => x.DataCriacao).HasDefaultValue(DateTime.Now).IsRequired();
         }
     }

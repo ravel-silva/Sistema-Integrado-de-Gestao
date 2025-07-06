@@ -14,6 +14,7 @@ namespace Sistema_Integrado_de_Gestao.Application.Mappings
         public DomainToDTOMappingProfile()
         {
             CreateMap<Equipe, EquipeDTO>();
+            CreateMap<EquipeDTO, Equipe>();
         }
     }
 }

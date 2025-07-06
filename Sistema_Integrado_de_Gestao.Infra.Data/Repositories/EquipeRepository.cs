@@ -32,7 +32,8 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Repositories
             if (equipe != null)
             {
                 _context.Equipe.Remove(equipe);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+                return equipe;
             }
             return null;
         }

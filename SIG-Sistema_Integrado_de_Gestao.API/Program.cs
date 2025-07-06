@@ -1,7 +1,16 @@
+using Sistema_Integrado_de_Gestao.Application.Services;
+using Sistema_Integrado_de_Gestao.Domain.Interfaces;
+using Sistema_Integrado_de_Gestao.Infra.Data.Repositories;
 using Sistema_Integrado_de_Gestao.Infra.IoC.DependencyInjection;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Injecoes
+builder.Services.AddScoped<IEquipeRepository, EquipeRepository>(); // Injeção do repositório de equipe
+builder.Services.AddScoped<EquipeService>(); // Injeção do serviço de equipe
+builder.Services.AddAutoMapper(typeof(Program)); // AutoMapper configuração
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 

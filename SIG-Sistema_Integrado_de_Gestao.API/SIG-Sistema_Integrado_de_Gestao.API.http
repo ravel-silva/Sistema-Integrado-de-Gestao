@@ -1,6 +1,0 @@
-@SIG_Sistema_Integrado_de_Gestao.API_HostAddress = http://localhost:5259
-
-GET {{SIG_Sistema_Integrado_de_Gestao.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

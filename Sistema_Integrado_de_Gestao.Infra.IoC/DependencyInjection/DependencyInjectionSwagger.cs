@@ -15,6 +15,7 @@ namespace Sistema_Integrado_de_Gestao.Infra.IoC.DependencyInjection
         {
             services.AddSwaggerGen(opts =>
             {
+                opts.EnableAnnotations();
                 opts.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
@@ -38,6 +39,7 @@ namespace Sistema_Integrado_de_Gestao.Infra.IoC.DependencyInjection
                     }
 
                 });
+                
             });
             return services;
         }
