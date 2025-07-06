@@ -1,4 +1,4 @@
-using Sistema_Integrado_de_Gestao.Infra.IoC;
+using Sistema_Integrado_de_Gestao.Infra.IoC.DependencyInjection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,10 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+//builder.Services.AddSwaggerGen();
 
 // configuração do banco de dados
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// referencia swagger
+builder.Services.AddInfrastructureSwagger();
 
 var app = builder.Build();
 

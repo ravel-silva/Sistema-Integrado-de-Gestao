@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -21,8 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sistema_Integrado_de_Gestao.Infra.IoC\Sistema_Integrado_de_Gestao.Infra.IoC.csproj" />
-    <ProjectReference Include="..\src\SIG\Sistema_Integrado_de_Gestao.Application\Sistema_Integrado_de_Gestao.Application.csproj" />
-    <ProjectReference Include="..\src\SIG\Sistema_Integrado_de_Gestao.Infra.IoC\Sistema_Integrado_de_Gestao.Infra.IoC.csproj" />
   </ItemGroup>
 
 </Project>

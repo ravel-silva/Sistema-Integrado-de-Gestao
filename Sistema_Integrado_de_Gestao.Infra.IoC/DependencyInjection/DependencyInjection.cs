@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistema_Integrado_de_Gestao.Infra.IoC
+namespace Sistema_Integrado_de_Gestao.Infra.IoC.DependencyInjection
 {
     public static class DependencyInjection
     {
@@ -21,7 +21,7 @@ namespace Sistema_Integrado_de_Gestao.Infra.IoC
                 options.UseMySql(
                     connectionString,
                     ServerVersion.AutoDetect(connectionString),
-                    mySqlOptions => 
+                    mySqlOptions =>
                     mySqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
             });
 
