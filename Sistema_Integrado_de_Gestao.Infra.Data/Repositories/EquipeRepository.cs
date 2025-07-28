@@ -60,10 +60,7 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Repositories
         {
             return await _context.Equipe.Where(equipe => equipe.Prefixo == prefixo).FirstOrDefaultAsync();
         }
-        public async Task<Equipe> SelecionarPorId(string prefixo)
-        {
-            return await _context.Equipe.Where(equipe => equipe.Prefixo == prefixo).FirstOrDefaultAsync();
-        }
+        
         public async Task<Equipe> SelecionarPorId(int id)
         {
             return await _context.Equipe.Where(equipe => equipe.Id == id).FirstOrDefaultAsync();

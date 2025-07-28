@@ -10,8 +10,8 @@ namespace Sistema_Integrado_de_Gestao.Domain.Interfaces
     public interface IEquipeRepository
     {
         Task<Equipe> Incluir(Equipe equipe); //ok
-        Task<Equipe> AlterarPorPrefixo(Equipe equipe);
-        Task<Equipe> AlterarPorId(Equipe equipe);
+        Task<Equipe> AlterarPorPrefixo(Equipe equipe); //ok
+        Task<Equipe> AlterarPorId(Equipe equipe); //ok
         Task<Equipe> Excluir(int id);
         Task<Equipe> SelecionarPorPrefixo(string prefixo);
         Task<Equipe> SelecionarPorId(int id); 

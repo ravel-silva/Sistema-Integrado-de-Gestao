@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Sistema_Integrado_de_Gestao.Application.Dtos.Equipe;
 using Sistema_Integrado_de_Gestao.Application.Interfaces;
 using Sistema_Integrado_de_Gestao.Domain.Entities;
@@ -77,8 +78,6 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
             var equipe = await _equipeRepository.Excluir(id);
             return _mapper.Map<EquipeCreateDTO>(equipe);
         }
-
-
         public Task<bool> SalveAllAsync()
         {
             var resultado = _equipeRepository.SalveAllAsync();
@@ -87,24 +86,24 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
 
         public async Task<EquipeReadDTO> SelecionarPorPrefixo(string prefixo)
         {
+            DomainExceptionValidation.When(string.IsNullOrEmpty(prefixo), "O prefixo não pode ser nulo ou vazio.");
             var equipe = await _equipeRepository.SelecionarPorPrefixo(prefixo);
             return _mapper.Map<EquipeReadDTO>(equipe);
         }
         public async Task<EquipeReadDTO> SelecionarPorId(int id)
         {
+            DomainExceptionValidation.When(id == null, "O ID não pode ser nulo.");
             var equipe = await _equipeRepository.SelecionarPorId(id);
             return _mapper.Map<EquipeReadDTO>(equipe);
         }
-
         public async Task<IEnumerable<EquipeReadDTO>> SelecionarTodos()
         {
+            DomainExceptionValidation.When(_equipeRepository == null, "O repositório de equipes não pode ser nulo.");
             var equipes = await _equipeRepository.SelecionarTodos();
+            DomainExceptionValidation.When(equipes == null || !equipes.Any(), "Nenhuma equipe encontrada.");
+
             var listaDeEquipes = _mapper.Map<IEnumerable<EquipeReadDTO>>(equipes);
             return listaDeEquipes.ToList();
         }
-
-
-
-
     }
 }

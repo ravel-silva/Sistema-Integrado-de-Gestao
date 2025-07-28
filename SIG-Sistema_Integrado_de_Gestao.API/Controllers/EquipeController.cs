@@ -30,16 +30,6 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
 
         }
 
-        [HttpGet("listarEquipes")]
-        public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarTodos()
-        {
-            var equipes = await _equipeService.SelecionarTodos();
-            if (equipes == null || !equipes.Any())
-            {
-                return NotFound("Nenhuma equipe encontrada.");
-            }
-            return Ok(equipes);
-        }
 
         [HttpPut("alterarEquipePorPrefixo/{prefixo}")]
         public async Task<ActionResult<EquipeUpdateDTO>> AlterarEquipePorPrefixo(string prefixo, [FromBody] EquipeUpdateDTO dto)
@@ -66,6 +56,28 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
             {
                 return Conflict(new { id = id, dataDeAtualizacao = dto.DataDeAtualizacao, mensagem = ex.Message });
             }
+        }
+        [HttpGet("listarEquipes")]
+        public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarTodos()
+        {
+            var equipes = await _equipeService.SelecionarTodos();
+            if (equipes == null || !equipes.Any())
+            {
+                return NotFound("Nenhuma equipe encontrada.");
+            }
+            return Ok(equipes);
+        }
+        [HttpGet("selecionarEquipePorPrefixo/{prefixo}")]
+        public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarEquipePorPrefixo(string prefixo)
+        {
+            var equipe = await _equipeService.SelecionarPorPrefixo(prefixo);
+            return Ok(equipe);
+        }
+        [HttpGet("selecionarEquipePorId/{id}")]
+        public async Task<ActionResult<EquipeReadDTO>> SelecionarEquipePorIdAsync(int id)
+        {
+            var equipe = await _equipeService.SelecionarPorId(id);
+            return Ok(equipe);
         }
     }
 }
