@@ -60,24 +60,55 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
         [HttpGet("listarEquipes")]
         public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarTodos()
         {
-            var equipes = await _equipeService.SelecionarTodos();
-            if (equipes == null || !equipes.Any())
+            try
             {
-                return NotFound("Nenhuma equipe encontrada.");
+                var equipes = await _equipeService.SelecionarTodos();
+                return Ok(equipes);
             }
-            return Ok(equipes);
+            catch (DomainExceptionValidation ex)
+            {
+                return Conflict(new { mensagem = ex.Message });
+
+            }
         }
         [HttpGet("selecionarEquipePorPrefixo/{prefixo}")]
         public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarEquipePorPrefixo(string prefixo)
         {
-            var equipe = await _equipeService.SelecionarPorPrefixo(prefixo);
-            return Ok(equipe);
+            try
+            {
+                var equipe = await _equipeService.SelecionarPorPrefixo(prefixo);
+                return Ok(equipe);
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return Conflict(new { prefixo = prefixo, mensagem = ex.Message });
+            }
         }
         [HttpGet("selecionarEquipePorId/{id}")]
-        public async Task<ActionResult<EquipeReadDTO>> SelecionarEquipePorIdAsync(int id)
+        public async Task<ActionResult<EquipeReadDTO>> SelecionarEquipePorId(int id)
         {
-            var equipe = await _equipeService.SelecionarPorId(id);
-            return Ok(equipe);
+            try
+            {
+                var equipe = await _equipeService.SelecionarPorId(id);
+                return Ok(equipe);
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return Conflict(new { id = id, mensagem = ex.Message });
+            }
+        }
+        [HttpDelete("excluirEquipe/{id}")]
+        public async Task<ActionResult<EquipeCreateDTO>> Excluir(int id)
+        {
+            try
+            {
+                var equipe = await _equipeService.Excluir(id);
+                return Ok(equipe);
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return Conflict(new { id = id, mensagem = ex.Message });
+            }
         }
     }
 }
