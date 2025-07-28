@@ -1,64 +1,63 @@
 ﻿using AutoMapper;
-using Sistema_Integrado_de_Gestao.Application.Dtos;
+using Sistema_Integrado_de_Gestao.Application.Dtos.Equipe;
 using Sistema_Integrado_de_Gestao.Application.Interfaces;
 using Sistema_Integrado_de_Gestao.Domain.Entities;
 using Sistema_Integrado_de_Gestao.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sistema_Integrado_de_Gestao.Domain.Validation;
 
 namespace Sistema_Integrado_de_Gestao.Application.Services
 {
     public class EquipeService : IEquipeService
     {
-        private readonly IEquipeRepository _repository;
+        private readonly IEquipeRepository _equipeRepository;
         private readonly IMapper _mapper;
 
         public EquipeService(IEquipeRepository repository, IMapper mapper)
         {
-            _repository = repository;
+            _equipeRepository = repository;
             _mapper = mapper;
         }
 
-        public async Task<EquipeDTO> Incluir(EquipeDTO equipeDTO)
+        public async Task<EquipeCreateDTO> Incluir(EquipeCreateDTO equipeDTO)
         {
+            var verificarExistente = _equipeRepository.SelecionarPorPrefixo(equipeDTO.Prefixo);
+            DomainExceptionValidation.When(verificarExistente != null, "Já existe uma equipe com esse prefixo.");
+
             var equipe = _mapper.Map<Equipe>(equipeDTO);
-            var equipeIncluida = await _repository.Incluir(equipe);
-            return _mapper.Map<EquipeDTO>(equipeIncluida);
+            var equipeIncluida = await _equipeRepository.Incluir(equipe);
+            return _mapper.Map<EquipeCreateDTO>(equipeIncluida);
         }
-        public async Task<EquipeDTO> Alterar(EquipeDTO equipeDTO)
+        public async Task<EquipeCreateDTO> Alterar(EquipeCreateDTO equipeDTO)
         {
             var equipe = _mapper.Map<Equipe>(equipeDTO);
-            var equipeAlterada = await _repository.Alterar(equipe);
-            return _mapper.Map<EquipeDTO>(equipeAlterada);
+            var equipeAlterada = await _equipeRepository.Alterar(equipe);
+            return _mapper.Map<EquipeCreateDTO>(equipeAlterada);
         }
 
-        public async Task<EquipeDTO> Excluir(int id)
+        public async Task<EquipeCreateDTO> Excluir(int id)
         {
-            var equipe = await _repository.Excluir(id);
-            return _mapper.Map<EquipeDTO>(equipe);
+            var equipe = await _equipeRepository.Excluir(id);
+            return _mapper.Map<EquipeCreateDTO>(equipe);
         }
 
 
         public Task<bool> SalveAllAsync()
         {
-            var resultado = _repository.SalveAllAsync();
+            var resultado = _equipeRepository.SalveAllAsync();
             return resultado;
         }
 
-        public async Task<EquipeDTO> SelecionarByPk(int id)
+        public async Task<EquipeReadDTO> SelecionarPorPrefixo(string prefixo)
         {
-            var equipe = await _repository.SelecionarByPk(id);
-            return _mapper.Map<EquipeDTO>(equipe);
+            var equipe = await _equipeRepository.SelecionarPorPrefixo(prefixo);
+            return _mapper.Map<EquipeReadDTO>(equipe);
         }
 
-        public async Task<IEnumerable<EquipeDTO>> SelecionarTodos()
+        public async Task<IEnumerable<EquipeReadDTO>> SelecionarTodos()
         {   
-            var equipes = await _repository.SelecionarTodos();
-            var listaDeEquipes = _mapper.Map<IEnumerable<EquipeDTO>>(equipes);
-            return listaDeEquipes;
+            var equipes = await _equipeRepository.SelecionarTodos();
+            var listaDeEquipes = _mapper.Map<IEnumerable<EquipeReadDTO>>(equipes);
+            return listaDeEquipes.ToList();
         }
 
     }

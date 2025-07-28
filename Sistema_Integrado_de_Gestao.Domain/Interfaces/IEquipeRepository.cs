@@ -9,11 +9,11 @@ namespace Sistema_Integrado_de_Gestao.Domain.Interfaces
 {
     public interface IEquipeRepository
     {
-        Task<Equipe> Incluir(Equipe equipe);
+        Task<Equipe> Incluir(Equipe equipe); //ok
         Task<Equipe> Alterar(Equipe equipe);
         Task<Equipe> Excluir(int id);
-        Task<Equipe> SelecionarByPk(int id);
-        Task<IEnumerable<Equipe>> SelecionarTodos();
+        Task<Equipe> SelecionarPorPrefixo(string prefixo);
+        Task<IEnumerable<Equipe>> SelecionarTodos(); //ok
         Task<bool> SalveAllAsync();
     }
 }

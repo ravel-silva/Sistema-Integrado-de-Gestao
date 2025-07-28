@@ -19,6 +19,12 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Repositories
         {
             _context = context;
         }
+        public async Task<Equipe> Incluir(Equipe equipe)
+        {
+            _context.Equipe.Add(equipe);
+            await _context.SaveChangesAsync();
+            return equipe;
+        }
         public async Task<Equipe> Alterar(Equipe equipe)
         {
             _context.Equipe.Update(equipe);
@@ -38,21 +44,15 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Repositories
             return null;
         }
 
-        public async Task<Equipe> Incluir(Equipe equipe)
-        {
-            _context.Equipe.Add(equipe);
-            await _context.SaveChangesAsync();
-            return equipe;
-        }
 
         public async Task<bool> SalveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<Equipe> SelecionarByPk(int id)
+        public async Task<Equipe> SelecionarPorPrefixo(string prefixo)
         {
-            return await _context.Equipe.Where(equipe => equipe.Id == id).FirstOrDefaultAsync();
+            return await _context.Equipe.Where(equipe => equipe.Prefixo == prefixo).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Equipe>> SelecionarTodos()

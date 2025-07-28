@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Sistema_Integrado_de_Gestao.Application.Dtos;
+using Sistema_Integrado_de_Gestao.Application.Dtos.Equipe;
 using Sistema_Integrado_de_Gestao.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,8 +13,11 @@ namespace Sistema_Integrado_de_Gestao.Application.Mappings
     {
         public DomainToDTOMappingProfile()
         {
-            CreateMap<Equipe, EquipeDTO>();
-            CreateMap<EquipeDTO, Equipe>();
+            CreateMap<Equipe, EquipeCreateDTO>();
+            CreateMap<EquipeCreateDTO, Equipe>();
+
+            CreateMap<Equipe, EquipeReadDTO>();
+            CreateMap<EquipeReadDTO, Equipe>();
         }
     }
 }

@@ -18,5 +18,6 @@ namespace Sistema_Integrado_de_Gestao.Domain.Validation
                 throw new DomainExceptionValidation(error);
             }
         }
+            
     }
 }

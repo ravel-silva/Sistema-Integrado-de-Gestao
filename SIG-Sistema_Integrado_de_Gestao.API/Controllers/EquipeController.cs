@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sistema_Integrado_de_Gestao.Application.Dtos;
+using Sistema_Integrado_de_Gestao.Application.Dtos.Equipe;
 using Sistema_Integrado_de_Gestao.Application.Services;
-using Sistema_Integrado_de_Gestao.Domain.Entities;
+using Sistema_Integrado_de_Gestao.Domain.Validation;
 
 namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
 {
@@ -16,19 +16,22 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
             _equipeService = equipeService;
         }
         [HttpPost("registrar")]
-        public async Task<ActionResult<EquipeDTO>> CadastroDeEquipe([FromBody]EquipeDTO dto)
+        public async Task<ActionResult<EquipeCreateDTO>> CadastroDeEquipe([FromBody] EquipeCreateDTO dto)
         {
-            if (dto == null)
+            try
             {
-                return BadRequest("Dados inválidos.");
+                var equipe = await _equipeService.Incluir(dto);
+                return Ok(equipe);
             }
-            // verificar se o usuario e cadastrado
-            //aqui
-            var equipe = await _equipeService.Incluir(dto);
-            return Ok(equipe);
+            catch (DomainExceptionValidation ex)
+            {
+                return Conflict(new {prefixo = dto.Prefixo,dataDaCriacao = dto.DataCriacao, mensagem = ex.Message });
+            }
+
         }
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EquipeDTO>>> SelecionarTodos()
+
+        [HttpGet("listarEquipes")]
+        public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarTodos()
         {
             var equipes = await _equipeService.SelecionarTodos();
             if (equipes == null || !equipes.Any())
@@ -37,5 +40,6 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
             }
             return Ok(equipes);
         }
+        
     }
 }
