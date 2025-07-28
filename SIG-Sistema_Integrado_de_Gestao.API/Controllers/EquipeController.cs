@@ -25,7 +25,7 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
             }
             catch (DomainExceptionValidation ex)
             {
-                return Conflict(new {prefixo = dto.Prefixo,dataDaCriacao = dto.DataCriacao, mensagem = ex.Message });
+                return Conflict(new { prefixo = dto.Prefixo, dataDaCriacao = dto.DataCriacao, mensagem = ex.Message });
             }
 
         }
@@ -40,6 +40,32 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
             }
             return Ok(equipes);
         }
-        
+
+        [HttpPut("alterarEquipePorPrefixo/{prefixo}")]
+        public async Task<ActionResult<EquipeUpdateDTO>> AlterarEquipePorPrefixo(string prefixo, [FromBody] EquipeUpdateDTO dto)
+        {
+            try
+            {
+                var equipe = await _equipeService.AlterarPorPrefixo(prefixo, dto);
+                return Ok(equipe);
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return Conflict(new { prefixo = dto.Prefixo, dataDeAtualizacao = dto.DataDeAtualizacao, mensagem = ex.Message });
+            }
+        }
+        [HttpPut("aterarEquipePorId/{id}")]
+        public async Task<ActionResult<EquipeUpdateDTO>> AlterarEquipePorId(int id, [FromBody] EquipeUpdateDTO dto)
+        {
+            try
+            {
+                var equipe = await _equipeService.AlterarPorId(id, dto);
+                return Ok(equipe);
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return Conflict(new { id = id, dataDeAtualizacao = dto.DataDeAtualizacao, mensagem = ex.Message });
+            }
+        }
     }
 }

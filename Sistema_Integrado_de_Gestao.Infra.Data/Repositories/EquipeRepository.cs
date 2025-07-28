@@ -25,7 +25,13 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Repositories
             await _context.SaveChangesAsync();
             return equipe;
         }
-        public async Task<Equipe> Alterar(Equipe equipe)
+        public async Task<Equipe> AlterarPorPrefixo(Equipe equipe)
+        {
+            _context.Equipe.Update(equipe);
+            await _context.SaveChangesAsync();
+            return equipe;
+        }
+        public async Task<Equipe> AlterarPorId(Equipe equipe)
         {
             _context.Equipe.Update(equipe);
             await _context.SaveChangesAsync();
@@ -54,11 +60,18 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Repositories
         {
             return await _context.Equipe.Where(equipe => equipe.Prefixo == prefixo).FirstOrDefaultAsync();
         }
+        public async Task<Equipe> SelecionarPorId(string prefixo)
+        {
+            return await _context.Equipe.Where(equipe => equipe.Prefixo == prefixo).FirstOrDefaultAsync();
+        }
+        public async Task<Equipe> SelecionarPorId(int id)
+        {
+            return await _context.Equipe.Where(equipe => equipe.Id == id).FirstOrDefaultAsync();
+        }
 
         public async Task<IEnumerable<Equipe>> SelecionarTodos()
         {
             return await _context.Equipe.ToListAsync();
         }
-
     }
 }

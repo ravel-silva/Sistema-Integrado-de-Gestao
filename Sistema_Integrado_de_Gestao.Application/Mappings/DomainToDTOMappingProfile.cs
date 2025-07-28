@@ -18,6 +18,10 @@ namespace Sistema_Integrado_de_Gestao.Application.Mappings
 
             CreateMap<Equipe, EquipeReadDTO>();
             CreateMap<EquipeReadDTO, Equipe>();
+
+            CreateMap<Equipe, EquipeUpdateDTO>();
+            CreateMap<EquipeUpdateDTO, Equipe>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
         }
     }
 }
