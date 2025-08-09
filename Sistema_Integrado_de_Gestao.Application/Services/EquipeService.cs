@@ -73,6 +73,17 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
 
             return _mapper.Map<EquipeUpdateDTO>(equipeAtualizada);
         }
+        public async Task<EquipeCreateDTO> Excluir(int id)
+        {
+            var equipe = await _equipeRepository.Excluir(id);
+            return _mapper.Map<EquipeCreateDTO>(equipe);
+        }
+        public Task<bool> SalveAllAsync()
+        {
+            var resultado = _equipeRepository.SalveAllAsync();
+            return resultado;
+        }
+
         public async Task<EquipeReadDTO> SelecionarPorPrefixo(string prefixo)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(prefixo), "O prefixo não pode ser nulo ou vazio.");
@@ -93,19 +104,6 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
 
             var listaDeEquipes = _mapper.Map<IEnumerable<EquipeReadDTO>>(equipes);
             return listaDeEquipes.ToList();
-        }
-        public async Task<EquipeCreateDTO> Excluir(int id)
-        {
-            var equipeExistente = await _equipeRepository.SelecionarPorId(id);
-            DomainExceptionValidation.When(equipeExistente == null, "Equipe não encontrada.");
-
-            var equipe = await _equipeRepository.Excluir(id);
-            return _mapper.Map<EquipeCreateDTO>(equipe);
-        }
-        public Task<bool> SalveAllAsync()
-        {
-            var resultado = _equipeRepository.SalveAllAsync();
-            return resultado;
         }
     }
 }

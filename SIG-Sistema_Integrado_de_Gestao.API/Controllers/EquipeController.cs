@@ -60,55 +60,24 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
         [HttpGet("listarEquipes")]
         public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarTodos()
         {
-            try
+            var equipes = await _equipeService.SelecionarTodos();
+            if (equipes == null || !equipes.Any())
             {
-                var equipes = await _equipeService.SelecionarTodos();
-                return Ok(equipes);
+                return NotFound("Nenhuma equipe encontrada.");
             }
-            catch (DomainExceptionValidation ex)
-            {
-                return Conflict(new { mensagem = ex.Message });
-
-            }
+            return Ok(equipes);
         }
         [HttpGet("selecionarEquipePorPrefixo/{prefixo}")]
         public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarEquipePorPrefixo(string prefixo)
         {
-            try
-            {
-                var equipe = await _equipeService.SelecionarPorPrefixo(prefixo);
-                return Ok(equipe);
-            }
-            catch (DomainExceptionValidation ex)
-            {
-                return Conflict(new { prefixo = prefixo, mensagem = ex.Message });
-            }
+            var equipe = await _equipeService.SelecionarPorPrefixo(prefixo);
+            return Ok(equipe);
         }
         [HttpGet("selecionarEquipePorId/{id}")]
-        public async Task<ActionResult<EquipeReadDTO>> SelecionarEquipePorId(int id)
+        public async Task<ActionResult<EquipeReadDTO>> SelecionarEquipePorIdAsync(int id)
         {
-            try
-            {
-                var equipe = await _equipeService.SelecionarPorId(id);
-                return Ok(equipe);
-            }
-            catch (DomainExceptionValidation ex)
-            {
-                return Conflict(new { id = id, mensagem = ex.Message });
-            }
-        }
-        [HttpDelete("excluirEquipe/{id}")]
-        public async Task<ActionResult<EquipeCreateDTO>> Excluir(int id)
-        {
-            try
-            {
-                var equipe = await _equipeService.Excluir(id);
-                return Ok(equipe);
-            }
-            catch (DomainExceptionValidation ex)
-            {
-                return Conflict(new { id = id, mensagem = ex.Message });
-            }
+            var equipe = await _equipeService.SelecionarPorId(id);
+            return Ok(equipe);
         }
     }
 }
