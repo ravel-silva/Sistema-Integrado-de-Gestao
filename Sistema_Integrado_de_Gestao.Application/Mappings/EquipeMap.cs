@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Sistema_Integrado_de_Gestao.Application.Mappings
 {
-    public class DomainToDTOMappingProfile : Profile
+    public class EquipeMap : Profile
     {
-        public DomainToDTOMappingProfile()
+        public EquipeMap()
         {
             CreateMap<Equipe, EquipeCreateDTO>();
             CreateMap<EquipeCreateDTO, Equipe>();
