@@ -21,7 +21,7 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
 
         public async Task<EquipeCreateDTO> Incluir(EquipeCreateDTO equipeDTO)
         {
-            var equipeExistente = _equipeRepository.SelecionarPorPrefixo(equipeDTO.Prefixo);
+            var equipeExistente = await _equipeRepository.SelecionarPorPrefixo(equipeDTO.Prefixo);
             DomainExceptionValidation.When(equipeExistente != null, "Já existe uma equipe com esse prefixo.");
 
             var equipe = _mapper.Map<Equipe>(equipeDTO);
@@ -42,7 +42,7 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
                     equipeComMesmoPrefixo != null && equipeComMesmoPrefixo.Id != equipeExistente.Id,
                     "Já existe uma equipe com esse prefixo.");
             }
-
+             
 
             _mapper.Map(equipeDTO, equipeExistente);
 
@@ -75,8 +75,10 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
         }
         public async Task<EquipeCreateDTO> Excluir(int id)
         {
-            var equipe = await _equipeRepository.Excluir(id);
-            return _mapper.Map<EquipeCreateDTO>(equipe);
+          var equipeExistente = await _equipeRepository.SelecionarPorId(id);
+            DomainExceptionValidation.When(equipeExistente == null, "Equipe não encontrada.");
+            var equipeExcluida = await _equipeRepository.Excluir(id);
+            return _mapper.Map<EquipeCreateDTO>(equipeExcluida);
         }
         public Task<bool> SalveAllAsync()
         {

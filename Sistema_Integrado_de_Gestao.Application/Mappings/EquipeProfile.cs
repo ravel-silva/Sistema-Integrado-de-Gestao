@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Sistema_Integrado_de_Gestao.Application.Mappings
 {
-    public class EquipeMap : Profile
+    public class EquipeProfile : Profile
     {
-        public EquipeMap()
+        public EquipeProfile()
         {
             CreateMap<Equipe, EquipeCreateDTO>();
             CreateMap<EquipeCreateDTO, Equipe>();

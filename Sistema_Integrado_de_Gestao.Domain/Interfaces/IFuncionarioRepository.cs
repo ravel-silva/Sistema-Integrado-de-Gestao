@@ -9,12 +9,13 @@ namespace Sistema_Integrado_de_Gestao.Domain.Interfaces
 {
     public interface IFuncionarioRepository
     {
-        Task<Funcionario> Incluir(Funcionario funcionario);
-        Task<Funcionario> AlterarPorPrefixo(Funcionario funcionario);
-        Task<Funcionario> AlterarPorId(Funcionario funcionario);
+        Task<Funcionario> Incluir(Funcionario funcionario); //ok
+        Task<Funcionario> AlterarPorNome(Funcionario funcionario); //ok
+        Task<Funcionario> AlterarPorId(Funcionario funcionario); //ok
         Task<Funcionario> Excluir(int id);
-        Task<Funcionario> SelecionarPorNome(string nome);   
-        Task<Funcionario> SelecionarPorId(int id);
-        Task<IEnumerable<Funcionario>> SelecionarTodos();
+        Task<Funcionario> SelecionarPorNome(string nome); //ok
+        Task<Funcionario> SelecionarPorId(int id); //ok
+        Task<IEnumerable<Funcionario>> SelecionarTodos(); //ok
+        
     }
 }

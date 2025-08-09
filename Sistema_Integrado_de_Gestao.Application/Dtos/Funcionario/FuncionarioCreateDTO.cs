@@ -11,10 +11,10 @@ namespace Sistema_Integrado_de_Gestao.Application.Dtos.Funcionario
     {
         [Required(ErrorMessage = "O nome é obrigatório")]
         [MinLength(3, ErrorMessage = "O nome deve ter no mínimo 3 caracteres.")]
-        public string Nome { get; private set; }
+        public string Nome { get; set; }
         [Required(ErrorMessage = "A matrícula é obrigatória")]
         [MinLength(3, ErrorMessage = "A matrícula deve ter no mínimo 3 caracteres.")]
-        public string Matricula { get; private set; }
-        public DateTime DataCriacao { get; private set; } = DateTime.Now;
+        public string Matricula { get; set; }
+        public DateTime DataCriacao { get; set; } = DateTime.Now;
     }
 }

@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 //Injecoes
 builder.Services.AddScoped<IEquipeRepository, EquipeRepository>(); // Injeção do repositório de equipe
 builder.Services.AddScoped<EquipeService>(); // Injeção do serviço de equipe
+builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>(); // Injeção do repositório de funcionário
+builder.Services.AddScoped<FuncionarioService>(); // Injeção do serviço de funcionário
+
+
 builder.Services.AddAutoMapper(typeof(Program)); // AutoMapper configuração
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -11,11 +11,11 @@ namespace Sistema_Integrado_de_Gestao.Application.Interfaces
     public interface IFuncionarioService
     {
         Task<FuncionarioCreateDTO> Incluir(FuncionarioCreateDTO funcionarioDTO); 
-        Task<FuncionarioCreateDTO> AlterarPorPrefixo(FuncionarioCreateDTO funcionarioDTO);
-        Task<FuncionarioCreateDTO> AlterarPorId(FuncionarioCreateDTO funcionarioDTO);
-        Task<FuncionarioCreateDTO> Excluir(int id);
-        Task<FuncionarioCreateDTO> SelecionarPorNome(string nome);
-        Task<FuncionarioCreateDTO> SelecionarPorId(int id);
-        Task<IEnumerable<FuncionarioCreateDTO>> SelecionarTodos();
+        Task<FuncionarioUpdateDTO> AlterarPorNome(string nome, FuncionarioUpdateDTO funcionarioDTO);
+        Task<FuncionarioUpdateDTO> AlterarPorId(int id,FuncionarioUpdateDTO funcionarioDTO);
+        Task<bool> Excluir(int id);
+        Task<FuncionarioReadDTO> SelecionarPorNome(string nome);
+        Task<FuncionarioReadDTO> SelecionarPorId(int id);
+        Task<IEnumerable<FuncionarioReadDTO>> SelecionarTodos();
     }
 }
