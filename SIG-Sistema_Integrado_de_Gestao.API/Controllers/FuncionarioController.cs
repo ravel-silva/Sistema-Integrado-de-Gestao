@@ -75,6 +75,12 @@ namespace SIG_Sistema_Integrado_de_Gestao.API.Controllers
             var funcionario = await _funcionarioService.SelecionarPorNome(nome);
             return Ok(funcionario);
         }
+        [HttpGet("selecionarFuncionarioPorMatricula/{matricula}")]
+        public async Task<ActionResult<IEnumerable<EquipeReadDTO>>> SelecionarFuncionarioPorMatricula(string matricula)
+        {
+            var funcionario = await _funcionarioService.SelecionarPorMatricula(matricula);
+            return Ok(funcionario);
+        }
         [HttpGet("selecionarFuncionarioPorId/{id}")]
         public async Task<ActionResult<EquipeReadDTO>> SelecionarFuncionarioPorIdAsync(int id)
         {

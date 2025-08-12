@@ -24,8 +24,9 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
         }
         public async Task<FuncionarioCreateDTO> Incluir(FuncionarioCreateDTO funcionarioDTO)
         {
-            var funcionarioExistente = await _funcionarioRepository.SelecionarPorNome(funcionarioDTO.Nome);
-            DomainExceptionValidation.When(funcionarioExistente != null, "Já existe um funcionário cadastrado com esse nome.");
+            var funcionarioNomeExistente = await _funcionarioRepository.SelecionarPorNome(funcionarioDTO.Nome);
+            var funcionarioMatriculaExistente = await _funcionarioRepository.SelecionarPorMatricula(funcionarioDTO.Matricula);
+            DomainExceptionValidation.When(funcionarioNomeExistente != null || funcionarioMatriculaExistente != null, "Já existe um funcionário cadastrado com esse dados.");
 
             var funcionario = _mapper.Map<Funcionario>(funcionarioDTO);
             var funcionarioIncluido = await _funcionarioRepository.Incluir(funcionario);
@@ -34,16 +35,21 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
         }
         public async Task<FuncionarioUpdateDTO> AlterarPorId(int id, FuncionarioUpdateDTO funcionarioDTO)
         {
+
             var funcionarioComMesmoNome = await _funcionarioRepository.SelecionarPorId(id);
             DomainExceptionValidation.When(funcionarioComMesmoNome == null, "Funcionário não encontrado.");
-
-            var funcionarioExistente = await _funcionarioRepository.SelecionarPorNome(funcionarioDTO.Nome);
-            if (funcionarioExistente != null && funcionarioExistente.Id != id)
+            
+            if (funcionarioDTO.Nome != null)
             {
-                throw new DomainExceptionValidation("Já existe um funcionário cadastrado com esse nome.");
+                var funcionarioExistente = await _funcionarioRepository.SelecionarPorNome(funcionarioDTO.Nome);
+                if (funcionarioExistente != null && funcionarioExistente.Id != id)
+                {
+                    throw new DomainExceptionValidation("Já existe um funcionário cadastrado com esse nome.");
+                }
             }
+                      
             _mapper.Map(funcionarioDTO, funcionarioComMesmoNome);
-            var funcionarioAtualizado = await _funcionarioRepository.AlterarPorId(funcionarioComMesmoNome);
+            var funcionarioAtualizado = await _funcionarioRepository.AlterarPorId(funcionarioComMesmoNome!);
             return _mapper.Map<FuncionarioUpdateDTO>(funcionarioAtualizado);
 
 
@@ -94,5 +100,12 @@ namespace Sistema_Integrado_de_Gestao.Application.Services
 
        }
 
+        public async Task<FuncionarioReadDTO> SelecionarPorMatricula(string matricula)
+        {
+            DomainExceptionValidation.When(string.IsNullOrEmpty(matricula), "Matricula não pode ser vazio.");
+            var funcionario = await _funcionarioRepository.SelecionarPorMatricula(matricula);
+            DomainExceptionValidation.When(funcionario == null, "Funcionário não encontrado.");
+            return _mapper.Map<FuncionarioReadDTO>(funcionario);
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace Sistema_Integrado_de_Gestao.Application.Interfaces
         Task<FuncionarioReadDTO> SelecionarPorNome(string nome);
         Task<FuncionarioReadDTO> SelecionarPorId(int id);
         Task<IEnumerable<FuncionarioReadDTO>> SelecionarTodos();
+        Task<FuncionarioReadDTO> SelecionarPorMatricula(string matricula);
     }
 }

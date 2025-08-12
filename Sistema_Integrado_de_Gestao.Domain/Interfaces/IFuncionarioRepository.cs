@@ -16,6 +16,6 @@ namespace Sistema_Integrado_de_Gestao.Domain.Interfaces
         Task<Funcionario> SelecionarPorNome(string nome); //ok
         Task<Funcionario> SelecionarPorId(int id); //ok
         Task<IEnumerable<Funcionario>> SelecionarTodos(); //ok
-        
+        Task<Funcionario> SelecionarPorMatricula(string matricula);
     }
 }

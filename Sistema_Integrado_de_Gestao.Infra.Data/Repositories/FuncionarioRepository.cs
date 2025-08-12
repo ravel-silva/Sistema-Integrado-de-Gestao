@@ -64,5 +64,11 @@ namespace Sistema_Integrado_de_Gestao.Infra.Data.Repositories
         {
             return await _context.Funcionarios.ToListAsync();
         }
+
+        public async Task<Funcionario> SelecionarPorMatricula(string matricula)
+        {
+            return await _context.Funcionarios.Where(funcionario => funcionario.Matricula == matricula).FirstOrDefaultAsync();
+
+        }
     }
 }
